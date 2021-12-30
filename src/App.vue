@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch, onBeforeMount, onBeforeUnmount } from "vue";
 let time: Date = new Date();
-var timeString = ref<string>(time.toLocaleTimeString());
-var date = ref<string>(time.toDateString());
-let timerVar = null;
+const timeString = ref<string>(time.toLocaleTimeString());
+const date = ref<string>(time.toDateString());
+var timerVar: number;
 onBeforeMount(() => {
   timerVar = setInterval(() => {
     time = new Date();
@@ -18,7 +18,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="center">
-    <h2>A simple digital clock</h2>
     <h1>{{ timeString }}</h1>
     <h4>{{ date }}</h4>
   </div>
