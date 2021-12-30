@@ -1,12 +1,27 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch, onBeforeMount, onBeforeUnmount } from "vue";
+let time: Date = new Date();
+var timeString = ref<string>(time.toLocaleTimeString());
+var date = ref<string>(time.toDateString());
+let timerVar = null;
+onBeforeMount(() => {
+  timerVar = setInterval(() => {
+    time = new Date();
+    timeString.value = time.toLocaleTimeString();
+    date.value = time.toDateString();
+  }, 1000);
+});
+onBeforeUnmount(() => {
+  clearInterval(timerVar);
+});
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="center">
+    <h2>A simple digital clock</h2>
+    <h1>{{ timeString }}</h1>
+    <h4>{{ date }}</h4>
+  </div>
 </template>
 
 <style>
@@ -17,5 +32,29 @@ import HelloWorld from './components/HelloWorld.vue'
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  background-color: #d3d3d3;
+}
+.container {
+  position: relative;
+  border: 3px solid green;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+h1,
+h2,
+h4 {
+  display: flex;
+  color: #1a3d24;
+  line-height: 25rem;
+  margin-bottom: 125px;
+  font-size: 4em !important;
 }
 </style>
